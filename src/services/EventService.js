@@ -4,6 +4,7 @@ import Nprogress from 'nprogress'
 const apiClient = axios.create({
   baseURL: `http://localhost:3000`,
   withCredentials: false,
+  timeout: 10000,
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json'
