@@ -9,9 +9,15 @@ Vue.use(VueRouter)
 
 const routes = [
   {
+    path: '/',
+    component: EventList,
+    props: true
+  },
+  {
     path: '/events',
     name: 'events.list',
-    component: EventList
+    component: EventList,
+    props: true
   },
   {
     path: '/events/create',
@@ -24,12 +30,35 @@ const routes = [
     component: EventShow,
     props: true,
     beforeEnter(routeTo, routeFrom, next) {
-      // Nprogress.start()
-      store.dispatch('event/fetchEvent', routeTo.params.id).then(event => {
-        // Nprogress.done()
-        routeTo.params.event = event
-        next()
-      })
+      store
+        .dispatch('event/fetchEvent', routeTo.params.id)
+        .then(event => {
+          routeTo.params.event = event
+          next()
+        })
+        .catch(error => {
+          if (error.response && error.response.status === 404)
+            next({ name: 'notfound', params: { resource: 'event' } })
+          else next({ name: 'network', params: { resource: 'event' } })
+        })
+    }
+  },
+  {
+    path: '/errors/not-found',
+    name: 'notfound',
+    component: () => import('../views/NotFound.vue'),
+    props: true
+  },
+  {
+    path: '/errors/network-issue',
+    name: 'network',
+    component: () => import('../views/NetworkIssue.vue'),
+    props: true
+  },
+  {
+    path: '*',
+    redirect: {
+      name: 'notfound'
     }
   }
 ]
