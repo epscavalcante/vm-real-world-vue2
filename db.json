@@ -401,6 +401,20 @@
       "date": "",
       "time": "",
       "attendees": []
+    },
+    {
+      "id": 1447424,
+      "category": "nature",
+      "organizer": {
+        "id": "123abc",
+        "name": "Eduardo"
+      },
+      "title": "",
+      "description": "",
+      "location": "",
+      "date": "",
+      "time": "",
+      "attendees": []
     }
   ]
 }
