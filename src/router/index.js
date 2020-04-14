@@ -12,15 +12,15 @@ const routes = [
     component: EventList
   },
   {
+    path: '/events/create',
+    name: 'events.create',
+    component: () => import('../views/EventCreate.vue')
+  },
+  {
     path: '/events/:id',
     name: 'events.show',
     component: EventShow,
     props: true
-  },
-  {
-    path: '/events/create',
-    name: 'events.create',
-    component: () => import('../views/EventCreate.vue')
   }
 ]
 

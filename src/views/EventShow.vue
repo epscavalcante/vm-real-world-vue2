@@ -1,9 +1,10 @@
 <template>
   <div>
+    <h1>Event details</h1>
     <div class="event-header">
       <span class="eyebrow">@{{ event.time }} on {{ event.date }}</span>
       <h1 class="title">{{ event.title }}</h1>
-      <h5>Organized by {{ event.organizer }}</h5>
+      <h5>Organized by {{ event.organizer ? event.organizer : '' }}</h5>
       <h5>Category: {{ event.category }}</h5>
     </div>
     <BaseIcon name="map">
@@ -29,20 +30,17 @@
 </template>
 
 <script>
-import EventService from '../services/EventService'
+import { mapState, mapActions } from 'vuex'
 
 export default {
   props: ['id'],
-  data() {
-    return {
-      event: {}
-    }
-  },
   created() {
-    EventService.getEvent(this.id).then(
-      response => (this.event = response.data)
-    )
-  }
+    this.fetchEvent(this.id)
+  },
+  methods: mapActions('event', ['fetchEvent']),
+  computed: mapState({
+    event: state => state.event.event
+  })
 }
 </script>
 
