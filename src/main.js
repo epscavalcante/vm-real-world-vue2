@@ -7,6 +7,7 @@ import camelCase from 'lodash/camelCase'
 import BaseIcon from '@/components/BaseIcon.vue'
 import BaseInput from '@/components/BaseInput.vue'
 import BaseButton from '@/components/BaseButton.vue'
+import 'nprogress/nprogress.css'
 
 Vue.config.productionTip = false
 Vue.component('BaseIcon', BaseIcon)
