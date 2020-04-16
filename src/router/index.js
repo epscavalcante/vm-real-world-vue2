@@ -10,8 +10,8 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    component: EventList,
-    props: true
+    name: 'home',
+    component: () => import('../views/Home.vue')
   },
   {
     path: '/events',
