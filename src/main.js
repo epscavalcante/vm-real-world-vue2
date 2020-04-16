@@ -9,8 +9,12 @@ import BaseInput from '@/components/BaseInput.vue'
 import BaseButton from '@/components/BaseButton.vue'
 import 'nprogress/nprogress.css'
 import Vuelidate from 'vuelidate'
+import DateFilter from './filters/date'
 
 Vue.config.productionTip = false
+
+Vue.filter('date', DateFilter)
+
 Vue.component('BaseIcon', BaseIcon)
 Vue.component('BaseButton', BaseButton)
 Vue.component('BaseInput', BaseInput)
