@@ -14,19 +14,22 @@ const routes = [
     component: () => import('../views/Home.vue')
   },
   {
-    path: '/events',
+    path: '/dashboard',
     name: 'events.list',
     component: EventList,
-    props: true
+    props: true,
+    meta: { requiresAuth: true }
   },
   {
     path: '/events/create',
     name: 'events.create',
+    meta: { requiresAuth: true },
     component: () => import('../views/EventCreate.vue')
   },
   {
     path: '/events/:id',
     name: 'events.show',
+    meta: { requiresAuth: true },
     component: EventShow,
     props: true,
     beforeEnter(routeTo, routeFrom, next) {
@@ -56,6 +59,16 @@ const routes = [
     props: true
   },
   {
+    path: '/register',
+    name: 'register',
+    component: () => import('../views/Register.vue')
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: () => import('../views/Login.vue')
+  },
+  {
     path: '*',
     redirect: {
       name: 'notfound'
@@ -71,6 +84,10 @@ const router = new VueRouter({
 
 router.beforeEach((routeTo, routeFrom, next) => {
   NProgress.start()
+  const loggedIn = localStorage.getItem('user')
+  if (routeTo.matched.some(record => record.meta.requiresAuth) && !loggedIn) {
+    next('/')
+  }
   next()
 })
 router.afterEach(() => {

@@ -1,57 +1,46 @@
 <template>
   <div id="nav">
-    <div class="container">
-      <router-link :to="{ name: 'home' }" class="brand">VueJs Example</router-link>
-      <nav>
-        <router-link :to="{ name: 'home' }">Home</router-link>|
-        <router-link :to="{ name: 'events.list' }">Events</router-link>|
-        <router-link :to="{ name: 'events.create' }">Logout</router-link>
-      </nav>
-    </div>
+    <router-link to="/">Home</router-link>
+    <router-link v-if="loggedIn" to="/dashboard">Dashboard</router-link>
+    <router-link v-if="!loggedIn" to="/login" class="button">Login</router-link>
+    <button v-else type="button" class="button logoutButton" @click="logout">Logout</button>
   </div>
 </template>
 
 <script>
-export default {}
+import { mapGetters, mapActions } from 'vuex'
+
+export default {
+  computed: mapGetters('user', ['loggedIn']),
+  methods: mapActions('user', ['logout'])
+}
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 #nav {
-  width: 100%;
+  display: flex;
+  align-items: center;
+  min-height: 50px;
+  padding: 0.2em 1em;
   background: linear-gradient(to right, #16c0b0, #84cf6a);
-
-  .container {
-    min-height: 50px;
-    margin: 0 auto;
-    max-width: 650px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    .brand {
-      font-size: 1.5em;
-    }
-
-    &.nav-welcome {
-      // margin-left: auto;
-      // margin-right: 1rem;
-      color: white;
-    }
-    a {
-      font-weight: bold;
-      color: #2c3e50;
-      margin: auto 0.8em auto 0.4em;
-      text-decoration: none;
-      border-top: 2px solid transparent;
-      border-bottom: 2px solid transparent;
-    }
-    .router-link-exact-active {
-      color: white;
-      border-bottom: 2px solid #fff;
-    }
-  }
 }
-
+.nav-welcome {
+  margin-left: auto;
+  margin-right: 1rem;
+  color: white;
+}
+a {
+  font-weight: bold;
+  color: #2c3e50;
+  margin: auto 0.8em auto 0.4em;
+  text-decoration: none;
+  border-top: 2px solid transparent;
+  border-bottom: 2px solid transparent;
+}
+.router-link-exact-active {
+  color: white;
+  border-bottom: 2px solid #fff;
+}
 button,
 .button {
   margin-left: auto;

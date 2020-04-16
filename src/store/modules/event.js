@@ -28,7 +28,7 @@ export const actions = {
   fetchEvents({ commit, dispatch, state }, { page }) {
     return EventService.getEvents(state.eventsPerPage, page)
       .then(response => {
-        commit('SET_EVENTS', response.data)
+        commit('SET_EVENTS', response.data.events)
         commit('SET_EVENTS_TOTAL', response.headers['x-total-count'])
       })
       .catch(error => {
