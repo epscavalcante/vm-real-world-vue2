@@ -1,27 +1,21 @@
 <template>
   <div>
     <label v-if="label">{{ label }}</label>
-    <input :value="value" @input="updateValue" v-bind="$attrs" />
+    <input :value="value" @input="updateValue" v-on="listeners" v-bind="$attrs" />
   </div>
 </template>
 
 <script>
+import { formFieldMixin } from '../mixins/formFieldMixin'
+
 export default {
-  inheritAttrs: false,
-  props: {
-    value: {
-      type: [String, Number],
-      required: false
-    },
-    label: {
-      type: String,
-      required: false
-    }
-  },
-  methods: {
-    updateValue(event) {
-      // <-- method triggered by input event
-      this.$emit('input', event.target.value)
+  mixins: [formFieldMixin],
+  computed: {
+    listeners() {
+      return {
+        ...this.$listeners,
+        input: this.updateValue
+      }
     }
   }
 }
