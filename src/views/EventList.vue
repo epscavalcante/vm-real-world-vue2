@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Event list to {{ user.user.name }}</h1>
+    <h1>Event list</h1>
     <EventCard v-for="event in event.events" :key="event.id" :event="event" />
     <template v-if="page != 1">
       <router-link :to="{ name: 'events.list', query: { page: page - 1 } }" rel="prev">Prev Page</router-link>|
@@ -46,7 +46,7 @@ export default {
     hasNextPage() {
       return this.event.eventsTotal > this.page * this.event.eventsPerPage
     },
-    ...mapState(['event', 'user'])
+    ...mapState(['event'])
   },
   components: {
     EventCard
